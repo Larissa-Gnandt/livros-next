@@ -1,7 +1,5 @@
-// pages/_app.tsx
-
 import 'bootstrap/dist/css/bootstrap.min.css'; // Importar o CSS do Bootstrap
-import '../styles/globals.css'; // Outros estilos globais, se houver
+import '../src/app/page.module.css'; // Certifique-se de que o caminho está correto
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 
@@ -13,7 +11,8 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <Component {...pageProps} />
     </>
-  )
+  );
 }
 
 export default MyApp;
+

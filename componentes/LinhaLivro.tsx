@@ -9,23 +9,34 @@ export const controleEditora = new ControleEditora();
 // Definindo a interface para as props do componente
 interface LinhaLivroProps {
   livro: Livro; // Defina a interface Livro conforme necessário
-  excluir: () => void; // Método para exclusão
+  excluir: (codigo: number) => void; // Método para exclusão
 }
 
 // Componente LinhaLivro
 export const LinhaLivro: React.FC<LinhaLivroProps> = (props) => {
-  // Aqui, você pode acessar props.livro e props.excluir
+  const { livro, excluir } = props;
+  const nomeEditora = controleEditora.getNomeEditora(livro.codEditora);
 
   return (
     <tr>
-      <td>{props.livro.codigo}</td>
-      <td>{props.livro.codEditora}</td>
-      <td>{props.livro.titulo}</td>
-      <td>{props.livro.resumo}</td>
-      <td>{props.livro.autores}</td>
       <td>
-        <button onClick={props.excluir}>Excluir</button>
+        <button onClick={() => excluir(livro.codigo)}>Excluir</button>
+        {livro.titulo}
+      </td>
+      <td>{livro.resumo}</td>
+      <td>{nomeEditora}</td>
+      <td>
+        <ul>
+          {livro.autores && livro.autores.length > 0 ? (
+            livro.autores.map((autor) => (
+              <li key={autor}>{autor}</li> // Use um identificador único, se disponível
+            ))
+          ) : (
+            <li>Nenhum autor disponível</li>
+          )}
+        </ul>
       </td>
     </tr>
   );
 };
+

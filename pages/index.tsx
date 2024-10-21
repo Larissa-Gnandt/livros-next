@@ -13,7 +13,7 @@ export default function Home() {
       </Head>
       <Menu />
       <main className={styles.main}>
-        <h1 className={styles.title}>Página Inicial</h1>
+        <h1 style={{ fontSize: '70px' }} className={`${styles.title} d-flex justify-content-center mx-auto mt-5`} >Página Inicial</h1>
       </main>
     </div>
   );

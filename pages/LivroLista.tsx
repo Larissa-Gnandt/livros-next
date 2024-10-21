@@ -1,10 +1,9 @@
-// LivroLista.tsx
-
-import { useState, useEffect } from 'react';
-import Head from 'next/head';
-import Menu from '../componentes/Menu'; // Assumindo que há um componente Menu
-import LinhaLivro from '../componentes/LinhaLivro'; // Assumindo que há um componente LinhaLivro
-import styles from '../src/app/page.module.css'; // Adjust the path and filename as necessary
+import { useState, useEffect } from "react";
+import Head from "next/head";
+import Menu from "../componentes/Menu"; // Assumindo que há um componente Menu
+import LinhaLivro from "../componentes/LinhaLivro"; // Assumindo que há um componente LinhaLivro
+import styles from "../src/app/page.module.css"; // Adjust the path and filename as necessary// Adjust the path and filename as necessary
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const baseURL: string = "http://localhost:3000/api/livros";
 
@@ -17,17 +16,17 @@ const obterLivros = async () => {
 // Função para excluir um livro pelo código
 const excluirLivro = async (codigo: number) => {
   const resposta = await fetch(`${baseURL}/${codigo}`, {
-    method: 'DELETE'
+    method: "DELETE",
   });
   return resposta.ok;
 };
 
 interface Livro {
-  codigo: number,
-  codEditora: number,
-  titulo: string,
-  resumo: string,
-  autores: string[]
+  codigo: number;
+  codEditora: number;
+  titulo: string;
+  resumo: string;
+  autores: string[];
 }
 
 const LivroLista = () => {
@@ -56,34 +55,36 @@ const LivroLista = () => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Lista de Livros</title>
+        <title>Catálogo de Livros </title>
         <meta name="description" content="Visualização e exclusão de livros" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Menu />
-      <main className={styles.main}>
-        <h1>Lista de Livros</h1>
-        <table>
-          <thead>
-            <tr>
-              <th>Código</th>
-              <th>CódigoEditora</th>
-              <th>Título</th>
-              <th>Resumo</th>
-              <th>Autores</th>
-            </tr>
-          </thead>
-          <tbody>
-            {livros.map((livro) => (
-              <LinhaLivro
-                key={livro.codigo}
-                livro={livro}
-                excluir={() => excluir(livro.codigo)}
-              />
-            ))}
-          </tbody>
-        </table>
-      </main>
+
+      <div style={{ marginTop: "20px", marginLeft: "20px",  marginRight: "20px"}}>
+        <main className={styles.main}>
+          <h1>Catálogo de Livros</h1>
+          <table>
+            <thead style={{ backgroundColor: 'black', color: 'white', padding: "100px" }}>
+              <tr style={{ fontSize: "20px"}}>
+                <th>Título</th>
+                <th>Resumo</th>
+                <th>Editora</th>
+                <th>Autores</th>
+              </tr>
+            </thead>
+              <tbody>
+                {livros.map((livro, index) => (
+                  <LinhaLivro
+                    key={livro.codigo}
+                    livro={livro}
+                    excluir={() => excluir(livro.codigo)}
+                  />
+                ))}
+              </tbody>
+          </table>
+        </main>
+      </div>
     </div>
   );
 };

@@ -8,7 +8,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     switch (req.method) {
       case "DELETE":
-        controleLivro.excluir(Number(codigo)); // Exclua o livro pelo código
+        controleLivro.excluir(Number(codigo));
         res.status(200).json({ message: "Livro excluído com sucesso!" });
         break;
 

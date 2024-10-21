@@ -40,3 +40,4 @@ export const LinhaLivro: React.FC<LinhaLivroProps> = (props) => {
   );
 };
 
+export default LinhaLivro;

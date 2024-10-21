@@ -1,84 +1,84 @@
-import type { NextPage } from 'next'
-import React, { useState, useEffect } from 'react'
-import Head from 'next/head';
-import Menu from '../componentes/Menu'; // Ajuste o caminho conforme necessário
-import styles from '../styles/Home.module.css'; // Importando os estilos
-import LinhaLivro from '../componentes/LinhaLivro'; // Importando o componente LinhaLivro
+// LivroLista.tsx
 
-// Definindo a interface Livro conforme necessário
+import { useState, useEffect } from 'react';
+import Head from 'next/head';
+import Menu from '../componentes/Menu'; // Assumindo que há um componente Menu
+import LinhaLivro from '../componentes/LinhaLivro'; // Assumindo que há um componente LinhaLivro
+import styles from '../src/app/page.module.css'; // Adjust the path and filename as necessary
+
+const baseURL: string = "http://localhost:3000/api/livros";
+
+// Função para obter os livros
+const obterLivros = async () => {
+  const resposta = await fetch(baseURL);
+  return await resposta.json();
+};
+
+// Função para excluir um livro pelo código
+const excluirLivro = async (codigo: number) => {
+  const resposta = await fetch(`${baseURL}/${codigo}`, {
+    method: 'DELETE'
+  });
+  return resposta.ok;
+};
+
 interface Livro {
-  codigo: number;
-  titulo: string;
-  resumo: string;
-  codEditora: number;
-  autores: string[];
+  codigo: number,
+  codEditora: number,
+  titulo: string,
+  resumo: string,
+  autores: string[]
 }
 
-const LivroLista: React.FC = () => {
-  const baseURL = "http://localhost:3000/api/livros"; // a) Definindo a baseURL
-  const [livros, setLivros] = useState<Array<Livro>>([]); // e) Estado para os livros
-  const [carregado, setCarregado] = useState<boolean>(false); // e) Estado de carregamento
+const LivroLista = () => {
+  const [livros, setLivros] = useState<Array<Livro>>([]);
+  const [carregado, setCarregado] = useState<boolean>(false);
 
-  // c) Função para obter livros
-  const obterLivros = async () => {
-    const response = await fetch(baseURL);
-    const data = await response.json();
-    return data; // Retornando a resposta no formato JSON
-  };
-
-  // d) Função para excluir livro
-  const excluirLivro = async (codigo: number) => {
-    const response = await fetch(`${baseURL}/${codigo}`, {
-      method: 'DELETE',
-    });
-    const result = await response.json();
-    return result.ok; // Retornando o campo ok da resposta
-  };
-
-  // g) Método para excluir um livro
-  const excluir = async (codigo: number) => {
-    const sucesso = await excluirLivro(codigo);
-    if (sucesso) {
-      setLivros((prevLivros) => prevLivros.filter(livro => livro.codigo !== codigo)); // Atualiza a lista de livros
-    }
-    setCarregado(false); // Forçando o redesenho da página
-  };
-
-  // f) Efeito para buscar livros
+  // Hook para carregar os livros quando a página for carregada ou o estado 'carregado' mudar
   useEffect(() => {
-    const fetchLivros = async () => {
-      const dados = await obterLivros();
-      setLivros(dados); // Alimentando o estado com os livros obtidos
-      setCarregado(true); // Alterando estado para carregado
-    };
+    if (!carregado) {
+      obterLivros().then((dados) => {
+        setLivros(dados);
+        setCarregado(true);
+      });
+    }
+  }, [carregado]);
 
-    fetchLivros();
-  }, []);
+  // Função para excluir um livro e forçar o recarregamento da página
+  const excluir = (codigo: number) => {
+    excluirLivro(codigo).then((sucesso) => {
+      if (sucesso) {
+        setCarregado(false); // Força o recarregamento ao definir como false
+      }
+    });
+  };
 
   return (
-    <div className={styles.container}> {/* h) Estrutura principal */}
+    <div className={styles.container}>
       <Head>
         <title>Lista de Livros</title>
+        <meta name="description" content="Visualização e exclusão de livros" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Menu /> {/* Componente de Menu */}
-      <main>
+      <Menu />
+      <main className={styles.main}>
         <h1>Lista de Livros</h1>
-        <table className="table">
+        <table>
           <thead>
             <tr>
+              <th>Código</th>
+              <th>CódigoEditora</th>
               <th>Título</th>
               <th>Resumo</th>
-              <th>Editora</th>
               <th>Autores</th>
-              <th>Ações</th>
             </tr>
           </thead>
           <tbody>
-            {livros.map((livro) => ( // i) Mapeando os livros para gerar linhas
-              <LinhaLivro 
-                key={livro.codigo} 
-                livro={livro} 
-                excluir={excluir} 
+            {livros.map((livro) => (
+              <LinhaLivro
+                key={livro.codigo}
+                livro={livro}
+                excluir={() => excluir(livro.codigo)}
               />
             ))}
           </tbody>

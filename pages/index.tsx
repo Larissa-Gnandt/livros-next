@@ -2,10 +2,11 @@
 import Head from 'next/head';
 import styles from '../src/app/page.module.css'; // Ajuste o caminho conforme necessário
 import { Menu } from '../componentes/Menu'; // Certifique-se de que o caminho esteja correto
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default function Home() {
   return (
-    <div className={styles.container}>
+    <div className={styles.container} >
       <Head>
         <title>Loja Next</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />

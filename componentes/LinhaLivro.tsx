@@ -35,6 +35,7 @@ export const LinhaLivro: React.FC<LinhaLivroProps> = (props) => {
             border: "none",
             borderRadius: "5px",
             marginTop: "10px",
+            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.3)"
           }}
           onClick={() => excluir(livro.codigo)}
         >

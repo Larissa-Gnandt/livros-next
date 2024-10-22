@@ -74,37 +74,94 @@ const LivroDados = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Menu />
-      <main className={styles.main}>
-        <h1>Incluir Novo Livro</h1>
+      <main
+        className={styles.main}
+        style={{
+          display: "block",
+          marginLeft: "20px",
+          marginRight: "20px",
+          marginTop: "20px",
+        }}
+      >
+        <h1>Dados do Livro</h1>
         <form onSubmit={incluir}>
           <div>
-            <label htmlFor="titulo">Título</label>
+            <label htmlFor="titulo" style={{ display: "block" }}>
+              Título
+            </label>
             <input
               type="text"
               id="titulo"
               value={titulo}
               onChange={(e) => setTitulo(e.target.value)}
+              style={{
+                minWidth: "90%",
+                height: "40px",
+                borderWidth: "1.5px",
+                borderRadius: "5px",
+                outline: "none",
+              }}
             />
           </div>
           <div>
-            <label htmlFor="resumo">Resumo</label>
+            <label
+              htmlFor="resumo"
+              style={{ display: "block", marginTop: "10px" }}
+            >
+              Resumo
+            </label>
             <textarea
               id="resumo"
               value={resumo}
               onChange={(e) => setResumo(e.target.value)}
+              style={{
+                minWidth: "90%",
+                height: "100px",
+                borderWidth: "1.5px",
+                borderRadius: "5px",
+                outline: "none",
+              }}
             />
           </div>
           <div>
-            <label htmlFor="autores">Autores (um por linha)</label>
+            <label
+              htmlFor="autores"
+              style={{ display: "block", marginTop: "10px" }}
+            >
+              Autores (1 por linha)
+            </label>
             <textarea
               id="autores"
               value={autores}
               onChange={(e) => setAutores(e.target.value)}
+              style={{
+                minWidth: "90%",
+                height: "100px",
+                borderWidth: "1.5px",
+                borderRadius: "5px",
+                outline: "none",
+              }}
             />
           </div>
           <div>
-            <label htmlFor="editora">Editora</label>
-            <select id="editora" value={codEditora} onChange={tratarCombo}>
+            <label
+              htmlFor="editora"
+              style={{ display: "block", marginTop: "10px" }}
+            >
+              Editora
+            </label>
+            <select
+              id="editora"
+              value={codEditora}
+              onChange={tratarCombo}
+              style={{
+                minWidth: "90%",
+                height: "40px",
+                borderWidth: "1.5px",
+                borderRadius: "5px",
+                outline: "none",
+              }}
+            >
               {opcoes.map((opcao) => (
                 <option key={opcao.value} value={opcao.value}>
                   {opcao.text}
@@ -112,7 +169,23 @@ const LivroDados = () => {
               ))}
             </select>
           </div>
-          <button type="submit">Salvar</button>
+          <button
+            type="submit"
+            className={styles.button}
+            style={{
+              maxWidth: "80px",
+              height: "40px",
+              borderWidth: "1.5px",
+              borderRadius: "5px",
+              outline: "none",
+              marginTop: "10px",
+              backgroundColor: "rgb(13 110 253)",
+              border: "none",
+              boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.3)"
+            }}
+          >
+            Salvar
+          </button>
         </form>
       </main>
     </div>

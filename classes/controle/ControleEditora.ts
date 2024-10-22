@@ -7,7 +7,8 @@ class ControleEditora {
     this.editoras = [
       { codEditora: 1, nome: "Globo Livros" },
       { codEditora: 2, nome: "Bertrand Brasil" },
-      { codEditora: 3, nome: "Editora C" },
+      { codEditora: 3, nome: "HarperCollins" },
+      { codEditora: 4, nome: "Outra" },
     ];
   }
 

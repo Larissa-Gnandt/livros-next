@@ -61,27 +61,27 @@ const LivroLista = () => {
       </Head>
       <Menu />
 
-      <div style={{ marginTop: "20px", marginLeft: "20px",  marginRight: "20px"}}>
+      <div style={{ marginTop: "20px", marginLeft: "20px", marginRight: "20px" }}>
         <main className={styles.main}>
           <h1>Catálogo de Livros</h1>
           <table>
             <thead style={{ backgroundColor: 'black', color: 'white', padding: "100px" }}>
-              <tr style={{ fontSize: "20px"}}>
+              <tr style={{ fontSize: "20px" }}>
                 <th>Título</th>
                 <th>Resumo</th>
                 <th>Editora</th>
                 <th>Autores</th>
               </tr>
             </thead>
-              <tbody>
-                {livros.map((livro, index) => (
-                  <LinhaLivro
-                    key={livro.codigo}
-                    livro={livro}
-                    excluir={() => excluir(livro.codigo)}
-                  />
-                ))}
-              </tbody>
+            <tbody>
+              {livros.map((livro) => (
+                <LinhaLivro
+                  key={livro.codigo}
+                  livro={livro}
+                  excluir={() => excluir(livro.codigo)}
+                />
+              ))}
+            </tbody>
           </table>
         </main>
       </div>

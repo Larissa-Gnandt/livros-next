@@ -1,4 +1,3 @@
-// pages/api/livros/[codigo].ts
 import { NextApiRequest, NextApiResponse } from "next";
 import { controleLivro } from "./index";
 

@@ -1,16 +1,13 @@
-// LivroDados.tsx
-
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import Menu from "../componentes/Menu"; // Assumindo que há um componente Menu
-import ControleEditora from "../classes/controle/ControleEditora"; // Supondo que controleEditora esteja importado
+import Menu from "../componentes/Menu";
+import ControleEditora from "../classes/controle/ControleEditora";
 import styles from "../src/app/page.module.css";
 
-const controleEditora = new ControleEditora(); // Instancia o controle de editoras
+const controleEditora = new ControleEditora();
 const baseURL: string = "http://localhost:3000/api/livros";
 
-// Função para incluir um livro
 const incluirLivro = async (livro: Livro) => {
   const resposta = await fetch(baseURL, {
     method: "POST",
@@ -41,28 +38,26 @@ const LivroDados = () => {
     text: editora.nome,
   }));
 
-  const router = useRouter(); // Utiliza o hook useRouter do Next.js para navegação
+  const router = useRouter();
 
-  // Trata a seleção no combo de editoras
   const tratarCombo = (evento: React.ChangeEvent<HTMLSelectElement>) => {
     setCodEditora(Number(evento.target.value));
   };
 
-  // Função para incluir o livro
   const incluir = async (evento: React.FormEvent<HTMLFormElement>) => {
-    evento.preventDefault(); // Impede o comportamento padrão de submit
+    evento.preventDefault();
 
     const novoLivro: Livro = {
       codigo: 0,
       titulo,
       resumo,
-      autores: autores.split("\n"), // Separa autores por linhas
+      autores: autores.split("\n"),
       codEditora,
     };
 
     const sucesso = await incluirLivro(novoLivro);
     if (sucesso) {
-      router.push("/LivroLista"); // Navega para a página de lista de livros
+      router.push("/LivroLista");
     }
   };
 
@@ -181,7 +176,7 @@ const LivroDados = () => {
               marginTop: "10px",
               backgroundColor: "rgb(13 110 253)",
               border: "none",
-              boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.3)"
+              boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.3)",
             }}
           >
             Salvar

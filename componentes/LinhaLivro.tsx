@@ -1,18 +1,14 @@
-// Importações necessárias
 import React from "react";
-import ControleEditora from "../classes/controle/ControleEditora"; // Ajuste o caminho conforme necessário
-import { Livro } from "../classes/modelo/Livro"; // Ajuste o caminho conforme necessário
+import ControleEditora from "../classes/controle/ControleEditora";
+import { Livro } from "../classes/modelo/Livro";
 
-// Instância do controlador de editoras
 export const controleEditora = new ControleEditora();
 
-// Definindo a interface para as props do componente
 interface LinhaLivroProps {
-  livro: Livro; // Defina a interface Livro conforme necessário
-  excluir: (codigo: number) => void; // Método para exclusão
+  livro: Livro;
+  excluir: (codigo: number) => void;
 }
 
-// Componente LinhaLivro
 export const LinhaLivro: React.FC<LinhaLivroProps> = (props) => {
   const { livro, excluir } = props;
   const nomeEditora = controleEditora.getNomeEditora(livro.codEditora);
@@ -35,7 +31,7 @@ export const LinhaLivro: React.FC<LinhaLivroProps> = (props) => {
             border: "none",
             borderRadius: "5px",
             marginTop: "10px",
-            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.3)"
+            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.3)",
           }}
           onClick={() => excluir(livro.codigo)}
         >
@@ -53,7 +49,14 @@ export const LinhaLivro: React.FC<LinhaLivroProps> = (props) => {
           marginTop: "10px",
         }}
       >
-        <div style={{ marginTop: "10px", marginLeft: '10px',marginRight: '20px', textAlign: "justify" }}>
+        <div
+          style={{
+            marginTop: "10px",
+            marginLeft: "10px",
+            marginRight: "20px",
+            textAlign: "justify",
+          }}
+        >
           {livro.resumo}
         </div>
       </td>

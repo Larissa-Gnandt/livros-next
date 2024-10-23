@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { ControleLivro } from "../../../classes/controle/ControleLivros"; // Ajuste o caminho conforme necessário
+import { ControleLivro } from "../../../classes/controle/ControleLivros";
 
 export const controleLivro = new ControleLivro();
 
@@ -7,13 +7,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     switch (req.method) {
       case "GET":
-        const livros = await controleLivro.obterLivros();
+        const livros = controleLivro.obterLivros();
         res.status(200).json(livros);
         break;
 
       case "POST":
-        const novoLivro = req.body; // Capture os dados do livro
-        await controleLivro.incluir(novoLivro); // Inclua no vetor de livros
+        const novoLivro = req.body;
+        controleLivro.incluir(novoLivro);
         res.status(200).json({ message: "Livro incluído com sucesso!" });
         break;
 
